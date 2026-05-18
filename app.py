@@ -23,6 +23,26 @@ logger = get_logger(__name__)
 
 st.set_page_config(page_title="Plataforma EEG", page_icon="🧠", layout="wide")
 
+
+def _autoseed_if_needed() -> None:
+    """Se o banco ainda não existe (primeiro deploy / após reset), popula
+    a partir de ``seed/eeg_seed.db`` quando esse arquivo estiver presente.
+
+    Permite que o Streamlit Cloud já apresente a app com os dados da pesquisa
+    ao subir, sem precisar fazer upload manual a cada redeploy.
+    """
+    import shutil
+    if DB_PATH.exists():
+        return
+    seed = _ROOT / 'seed' / 'eeg_seed.db'
+    if not seed.exists():
+        return
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(seed, DB_PATH)
+    logger.info("Banco populado a partir de %s -> %s", seed, DB_PATH)
+
+
+_autoseed_if_needed()
 init_db(DB_PATH)
 conn = get_connection(DB_PATH)
 

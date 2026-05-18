@@ -15,6 +15,12 @@
 !tests/data/sample_generator.py
 !tests/data/__init__.py
 
+# `seed/` é a exceção propositada à regra acima — contém o banco "factory
+# default" usado para popular o deploy no Streamlit Cloud automaticamente.
+# REPO É PRIVADO; conteúdo inclui dados de pesquisa com sujeitos humanos.
+!seed/
+!seed/*.db
+
 # ──────────────────────────────────────────────────────────────
 # Python
 # ──────────────────────────────────────────────────────────────

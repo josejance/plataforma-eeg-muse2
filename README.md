@@ -241,12 +241,30 @@ Passos no [share.streamlit.io](https://share.streamlit.io/):
 4. Authorize Streamlit Cloud a acessar o repo privado (uma única vez)
 5. Deploy → fica em `https://<seu-app>.streamlit.app`
 
-> ⚠️ **Aviso ético/legal**: dados de pesquisa com sujeitos humanos (os 96
-> participantes) NÃO devem ser hospedados em infraestrutura de terceiros. A app
-> deployada inicia com banco **vazio** e o filesystem do Streamlit Cloud é
-> efêmero (qualquer commit novo apaga uploads). Use a app deployada como
-> demonstração da metodologia ou para a banca explorar com dados sintéticos.
-> Mantenha o trabalho com dados reais somente em ambiente local.
+### Auto-seed do banco
+
+A pasta `seed/eeg_seed.db` é o snapshot "factory default" carregado no
+primeiro start da app (e a cada redeploy do Streamlit Cloud, dado que o
+filesystem dele é efêmero). No startup, `app.py` copia esse arquivo para
+`data/eeg.db` se este último ainda não existir.
+
+Para **atualizar** o seed antes de um novo deploy:
+```bash
+# Roda o export, sobrescrevendo o seed comitado
+python scripts/export_backup.py --out seed/eeg_seed.db
+git add seed/eeg_seed.db
+git commit -m "atualiza seed para deploy"
+git push
+```
+
+> ⚠️ **Aviso ético/legal**: o `seed/eeg_seed.db` contém dados de 96
+> participantes humanos (demografia, traços, posição política, índices EEG).
+> O repo é **privado** e o deploy no Streamlit Cloud é **acesso restrito**;
+> ainda assim, isso constitui hospedagem em infra de terceiros (GitHub +
+> Streamlit/AWS). Verifique que o TCLE e o parecer ético do seu programa
+> autorizam essa hospedagem. Se em dúvida, mantenha o repo privado e gere
+> backups apenas localmente (use a feature **Restaurar banco** na app online
+> para uploads pontuais sob seu controle).
 
 ## Licença
 
