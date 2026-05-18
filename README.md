@@ -227,6 +227,27 @@ Edite `config.py` para ajustar:
 Os módulos gravam em `logs/app.log` com rotação de 10 MB × 3 arquivos.
 Última seção do log é visualizável na expansão **🔧 Administração** da página inicial.
 
+## Deploy no Streamlit Community Cloud
+
+O repo já vem configurado:
+- `runtime.txt` → Python 3.12
+- `.streamlit/config.toml` → headless, upload até 200 MB, tema claro
+- `requirements.txt` → todas as deps pinned por versão mínima
+
+Passos no [share.streamlit.io](https://share.streamlit.io/):
+1. Sign in com GitHub
+2. **New app** → selecionar `josejance/plataforma-eeg-muse2`
+3. Branch: `main` · Main file: `app.py`
+4. Authorize Streamlit Cloud a acessar o repo privado (uma única vez)
+5. Deploy → fica em `https://<seu-app>.streamlit.app`
+
+> ⚠️ **Aviso ético/legal**: dados de pesquisa com sujeitos humanos (os 96
+> participantes) NÃO devem ser hospedados em infraestrutura de terceiros. A app
+> deployada inicia com banco **vazio** e o filesystem do Streamlit Cloud é
+> efêmero (qualquer commit novo apaga uploads). Use a app deployada como
+> demonstração da metodologia ou para a banca explorar com dados sintéticos.
+> Mantenha o trabalho com dados reais somente em ambiente local.
+
 ## Licença
 
 Uso acadêmico — dissertação de mestrado em comunicação (IDP).

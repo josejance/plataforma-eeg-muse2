@@ -1,0 +1,20 @@
+# Configuração para Streamlit Community Cloud (e execução local)
+
+[server]
+maxUploadSize = 200          # MB — CSVs grandes do Mind Monitor cabem
+headless = true              # sem prompt de e-mail
+enableCORS = true
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+font = "sans serif"
+
+[logger]
+level = "info"
